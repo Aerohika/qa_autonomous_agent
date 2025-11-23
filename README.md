@@ -1,7 +1,8 @@
-project:
+
   name: "Autonomous QA Agent — Test Case & Selenium Script Generation"
   author: "Aastha"
   repository: "https://github.com/Aerohika/qa_autonomous_agent"
+  demo video: "https://drive.google.com/file/d/1q5Uyf8qWpLbfAef9aKJK-5Dtnh818d_y/view?usp=drivesdk"
   description: >
     An intelligent QA agent that ingests project documentation and HTML to build a knowledge base,
     generate grounded test cases, and output runnable Selenium Python scripts.
