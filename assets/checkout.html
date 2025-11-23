@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>E-Shop Checkout</title>
+    <style>
+        .error { color: red; }
+        body { font-family: sans-serif; margin: 20px; }
+        .item { margin-bottom: 10px; }
+        button { padding: 8px 14px; cursor: pointer; }
+        #total-price { font-size: 20px; font-weight: bold; margin-top: 10px; }
+    </style>
+</head>
+
+<body>
+
+<h1>E-Shop Checkout</h1>
+
+<!-- ITEMS -->
+<div id="items">
+    <div class="item">
+        <span class="item-name">Item A</span>
+        <button class="add-to-cart-btn" data-item="A">Add to Cart</button>
+    </div>
+    <div class="item">
+        <span class="item-name">Item B</span>
+        <button class="add-to-cart-btn" data-item="B">Add to Cart</button>
+    </div>
+</div>
+
+<!-- CART SUMMARY -->
+<h2>Cart Summary</h2>
+<div id="cart-summary">
+    <label>Item A Qty:</label>
+    <input id="itemA-qty" type="number" value="0" readonly><br>
+
+    <label>Item B Qty:</label>
+    <input id="itemB-qty" type="number" value="0" readonly><br>
+
+    <div id="total-price">$0.00</div>
+</div>
+
+<!-- DISCOUNT -->
+<h2>Discount Code</h2>
+<input id="discount-code" type="text" placeholder="Enter discount code">
+<button id="apply-discount">Apply</button>
+<div id="discount-error" class="error"></div>
+
+<!-- USER DETAILS -->
+<h2>User Details</h2>
+<form id="checkout-form">
+    <input id="name" type="text" placeholder="Name">
+    <div id="name-error" class="error"></div>
+
+    <input id="email" type="email" placeholder="Email">
+    <div id="email-error" class="error"></div>
+
+    <textarea id="address" placeholder="Address"></textarea>
+    <div id="address-error" class="error"></div>
+
+    <h3>Shipping Method</h3>
+    <label><input type="radio" name="shipping" value="standard" checked> Standard</label>
+    <label><input type="radio" name="shipping" value="express"> Express</label>
+
+    <h3>Payment Method</h3>
+    <label><input type="radio" name="payment" value="card" checked> Credit Card</label>
+    <label><input type="radio" name="payment" value="paypal"> PayPal</label>
+
+    <button id="pay-now" type="button">Pay Now</button>
+    <div id="form-error" class="error"></div>
+    <div id="success-message"></div>
+</form>
+
+
+<!-- SCRIPT -->
+<script>
+    let cart = {
+        "Item A": { price: 100, qty: 0 },
+        "Item B": { price: 50, qty: 0 }
+    };
+
+    const discountCodes = {
+        "SAVE15": 0.15
+    };
+
+    function calculateRawTotal() {
+        return (cart["Item A"].price * cart["Item A"].qty) +
+               (cart["Item B"].price * cart["Item B"].qty);
+    }
+
+    function updateCartSummary(applyDiscount = false) {
+        let total = calculateRawTotal();
+        const code = document.getElementById("discount-code").value;
+        const errDiv = document.getElementById("discount-error");
+
+        // Apply discount
+        if (applyDiscount) {
+            if (discountCodes[code]) {
+                total = total * (1 - discountCodes[code]);
+                errDiv.textContent = "";
+            } else if (code.trim() !== "") {
+                errDiv.textContent = "Invalid discount code";
+            }
+        }
+
+        // Update UI
+        document.getElementById("itemA-qty").value = cart["Item A"].qty;
+        document.getElementById("itemB-qty").value = cart["Item B"].qty;
+        document.getElementById("total-price").textContent = "$" + total.toFixed(2);
+    }
+
+    // Add to cart listeners
+    document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            let item = btn.getAttribute("data-item");
+            cart["Item " + item].qty++;
+            updateCartSummary(false);
+        });
+    });
+
+    // Apply discount logic
+    document.getElementById("apply-discount").addEventListener("click", () => {
+        updateCartSummary(true);
+    });
+
+    updateCartSummary();
+</script>
+
+</body>
+</html>

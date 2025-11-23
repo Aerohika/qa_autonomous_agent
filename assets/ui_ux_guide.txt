@@ -1,0 +1,5 @@
+UI/UX Guidelines
+
+- Form validation errors must be displayed in red text.
+- The "Pay Now" button should be green.
+- The success message must display: "Payment Successful!" when the form is valid and submitted.
