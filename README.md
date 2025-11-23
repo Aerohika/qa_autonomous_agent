@@ -1,28 +1,29 @@
+
 # **Autonomous QA Agent — Test Case & Selenium Script Generation**
 
 **Author:** Aastha
 
 **Repository:** [https://github.com/Aerohika/qa_autonomous_agent](https://github.com/Aerohika/qa_autonomous_agent)
 
-**Demo Video:** [https://drive.google.com/file/d/1q5Uyf8qWpLbfAef9aKJK-5Dtnh818d_y/view?usp=drivesdk)
+**Demo Video:** [https://drive.google.com/file/d/1q5Uyf8qWpLbfAef9aKJK-5Dtnh818d_y/view?usp=drivesdk](https://drive.google.com/file/d/1q5Uyf8qWpLbfAef9aKJK-5Dtnh818d_y/view?usp=drivesdk)
 
 ---
 
-##  **Project Overview**
+## **Project Overview**
 
 The **Autonomous QA Agent** is an AI-powered testing system that:
 
-* Ingests documentation such as product specs, UI/UX guidelines, and API references
+* Ingests project documentation such as product specs, UI/UX guidelines, and API references
 * Ingests `checkout.html` and extracts DOM structure
 * Builds a knowledge base using **embeddings + chunking**
 * Generates QA test cases using a **RAG pipeline**
 * Converts selected test cases into **fully runnable Selenium Python scripts**
 
-This automates what would normally take hours of manual QA effort.
+This automates what would normally take hours of manual QA work.
 
 ---
 
-##  **Architecture**
+## **Architecture**
 
 ### **Backend — Flask**
 
@@ -41,7 +42,7 @@ This automates what would normally take hours of manual QA effort.
 
 ### **Generated Scripts**
 
-Contains automatically generated Selenium scripts based on selected test cases.
+Holds automatically generated Selenium Python scripts.
 
 ### **Assets**
 
@@ -54,7 +55,7 @@ Contains:
 
 ---
 
-##  **Project Structure**
+## **Project Structure**
 
 ```
 qa_autonomous_agent/
@@ -69,7 +70,7 @@ qa_autonomous_agent/
 
 ---
 
-##  **Required Support Documents**
+## **Required Support Documents**
 
 | File                            | Purpose                                 |
 | ------------------------------- | --------------------------------------- |
@@ -80,7 +81,7 @@ qa_autonomous_agent/
 
 ---
 
-##  **Setup Instructions**
+## **Setup Instructions**
 
 ### **Python Version**
 
@@ -152,10 +153,164 @@ cd assets
 python -m http.server 8000
 ```
 
-Use this URL inside scripts:
+Use inside scripts:
 
 ```
 http://localhost:8000/checkout.html
+```
+
+---
+
+# 🔧 **Usage**
+
+This section explains how to use the Autonomous QA Agent end-to-end — from uploading documents to executing generated Selenium scripts.
+
+---
+
+## **1️⃣ Start the System**
+
+### Backend (Flask)
+
+```bash
+cd backend
+python app.py
+```
+
+Runs on: **[http://localhost:5000](http://localhost:5000)**
+
+### Frontend (Streamlit)
+
+```bash
+cd frontend
+streamlit run streamlit_app.py
+```
+
+Runs on: **[http://localhost:8501](http://localhost:8501)**
+
+---
+
+## **2️⃣ Upload Documents**
+
+Inside the Streamlit UI:
+
+* `checkout.html`
+* `product_specs.md`
+* `ui_ux_guide.txt`
+* `api_endpoints.json` *(optional)*
+
+These form the **knowledge base**.
+
+---
+
+## **3️⃣ Build the Knowledge Base**
+
+Click:
+
+### **🟦 Build Knowledge Base**
+
+The system:
+
+* Splits documents into chunks
+* Generates embeddings
+* Stores them into a vector database
+* Prepares for RAG test-case generation
+
+---
+
+## **4️⃣ Generate Test Cases**
+
+Ask the agent:
+
+```
+Generate test cases for the checkout page
+```
+
+Or more specific:
+
+```
+Create test cases for discount code validation
+```
+
+The agent returns well-structured test cases (IDs, steps, expected results).
+
+---
+
+## **5️⃣ Select a Test Case**
+
+Choose any generated test case from the dropdown.
+
+Example:
+
+```
+TC_DISCOUNT_001
+```
+
+You will see:
+
+* Steps
+* Preconditions
+* Expected results
+
+---
+
+## **6️⃣ Generate Selenium Script**
+
+Click:
+
+### **🟩 Generate Selenium Script**
+
+The agent outputs a runnable Selenium script with:
+
+* element locators
+* waits
+* assertions
+* logging
+* exception handling
+
+Script is saved in:
+
+```
+generated_scripts/<testcase>.py
+```
+
+---
+
+## **7️⃣ Run the Generated Script**
+
+### Option A — run directly
+
+```bash
+python generated_scripts/<script_name>.py
+```
+
+### Option B — if page must be served
+
+```bash
+cd assets
+python -m http.server 8000
+```
+
+Use:
+
+```
+http://localhost:8000/checkout.html
+```
+
+---
+
+## **8️⃣ View Results**
+
+The script prints:
+
+* Step logs
+* Status: Pass / Fail
+* Assertion messages
+* Screenshots on failure
+
+Example:
+
+```
+Test Case TC_DISCOUNT_001 PASSED SUCCESSFULLY!
 ```
 
 ---
@@ -172,28 +327,21 @@ http://localhost:8000/checkout.html
 
 ---
 
-##  **Demo Video Uploaded**
+## **Demo Video Uploaded**
 
-* Around 8 minutes 
-* It shows:
-  
-  ✓ Uploading documents
-  
-  ✓ Uploading HTML
-  
-  ✓ Building knowledge base
-  
-  ✓ Generating test cases
-  
-  ✓ Generating Selenium script
-  
-  ✓ Running the script live
+* Around 8 minutes
+* Shows full pipeline:
+  ✓ Upload documents
+  ✓ Upload HTML
+  ✓ Build knowledge base
+  ✓ Generate test cases
+  ✓ Generate Selenium script
+  ✓ Run script live
 
 ---
 
 ## **Acknowledgment**
 
-This project is based on the assignment:
+Based on the assignment:
 **“Development of an Autonomous QA Agent for Test Case & Script Generation”**
 
----
