@@ -4,7 +4,7 @@
 
 **Repository:** [https://github.com/Aerohika/qa_autonomous_agent](https://github.com/Aerohika/qa_autonomous_agent)
 
-**Demo Video:** [https://drive.google.com/file/d/1q5Uyf8qWpLbAfef9aKJK-5Dtnh818d_y/view?usp=drivesdk](https://drive.google.com/file/d/1q5Uyf8qWpLbAfef9aKJK-5Dtnh818d_y/view?usp=drivesdk)
+**Demo Video:** [https://drive.google.com/file/d/1q5Uyf8qWpLbfAef9aKJK-5Dtnh818d_y/view?usp=drivesdk)
 
 ---
 
